@@ -1,0 +1,30 @@
+{
+  "name": "blob-golem",
+  "version": "0.0.0",
+  "description": "Entry for 2014 48hr game development compf",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "beefy js/app.js:build/bundle.js --live",
+    "install": "browserify js/app.js -o build/bundle.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/davidmason/blob-golem.git"
+  },
+  "author": "Mad Red Hatters",
+  "license": "MIT",
+  "readmeFilename": "README.md",
+  "gitHead": "b5eab69922a572442ad144f95e6e6e8d84453d1f",
+  "dependencies": {
+    "crtrdg-gameloop": "0.0.4",
+    "crtrdg-keyboard": "0.0.2",
+    "crtrdg-mouse": "0.0.3",
+    "aabb-2d": "0.0.0",
+    "inherits": "~2.0.1"
+  },
+  "devDependencies": {
+    "beefy": "~0.4.0",
+    "browserify": "~2.25.0"
+  }
+}
