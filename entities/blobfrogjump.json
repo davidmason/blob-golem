@@ -1,0 +1,13 @@
+{
+  "name": "BlobFrogJump",
+  "width": 325,
+  "height": 738,
+  "sprite": {
+    "file": "images/entity/frog-blob-spritesheet.png",
+    "width": 325,
+    "height": 738,
+    "animations": {
+      "frog jump": [[0,0, 200], [0,1, 200], [0,2, 200], [1,0, 200], [1,1, 200], [0,2, 200],[0,0, 200]]
+    }
+  }
+}
