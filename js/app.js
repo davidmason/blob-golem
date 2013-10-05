@@ -40,9 +40,9 @@ var game = new Game({
   height: 650,
   backgroundColor: '#6cf'
 });
+
 var keyboard = new Keyboard(game);
 var mouse = new Mouse(game);
-
 mouse.on('click', function(location){
   console.log("clicked at location (" + location.x + ", " + location.y + ")");
   if (soundsLoaded) {
@@ -114,6 +114,9 @@ enemy.on('collision', function (entity) {
 game.on('update', function (interval) {
 });
 
+game.on('draw-background', function (context) {
+  console.log('got a draw-background event');
+});
 
 // FIXME all this stuff should go in another class
 var frenemy = new Enemy({

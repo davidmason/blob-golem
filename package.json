@@ -17,7 +17,7 @@
   "readmeFilename": "README.md",
   "gitHead": "b5eab69922a572442ad144f95e6e6e8d84453d1f",
   "dependencies": {
-    "crtrdg-gameloop": "0.0.4",
+    "crtrdg-gameloop": "git://github.com/davidmason/crtrdg-gameloop.git",
     "crtrdg-keyboard": "0.0.2",
     "crtrdg-mouse": "0.0.3",
     "aabb-2d": "0.0.0",

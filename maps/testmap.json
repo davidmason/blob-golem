@@ -1,35 +1,48 @@
 {
+  "name": "First Level!",
   "tiles" : {
-    "grass": {
-      "file": "images/tiles/grass.png",
-      "width": 100,
-      "height": 100
+    "leaves": {
+      "background": "images/Leaves.png",
+      "width": 130,
+      "height": 130,
+      "bounds": {
+        "x": 15,
+        "y": 15,
+        "width": 100,
+        "height": 100
+      }
+    },
+    "bark": {
+      "background": "images/Bark.png",
+      "width": 130,
+      "height": 130
     },
     "dirt": {
-      "file": "images/tiles/dirt.png",
-      "width": 100,
-      "height": 100
-    },
-    "bigdirt": {
-      "file": "images/tiles/bigdirt.png",
-      "width": 200,
-      "height": 100
-    },
+      "background": "images/dirtCentre.png",
+      "width": 240,
+      "height": 199
+    }
   },
 
   "background": {
-    "file": "images/backgrounds/level1.png",
+    "file": "images/Background.png",
     "top": 0,
     "left": 0
   },
 
   "midground": [
-    ["grass", [0, 1000]],
-    ["grass", [100, 1000]]
-    ["grass", [200, 1000]]
-    ["grass", [300, 1000]]
-    ["grass", [400, 1000]]
-    ["grass", [500, 1000]]
+    ["bark", [866, 906]],
+    ["bark", [866, 784]],
+    ["bark", [866, 662]],
+    ["bark", [866, 532]],
+    ["leaves", [857, 420]],
+    ["leaves", [738, 420]],
+    ["leaves", [984, 420]],
+    ["dirt", [0, 1035]],
+    ["dirt", [240, 1035]],
+    ["dirt", [480, 1035]],
+    ["dirt", [720, 1035]],
+    ["dirt", [960, 1035]]
   ]
 
 }
