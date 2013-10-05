@@ -1,8 +1,15 @@
 {
   "name": "First Level!",
+
+  "background": {
+    "file": "images/background/Background.png",
+    "top": 0,
+    "left": 0
+  },
+
   "tiles" : {
     "leaves": {
-      "background": "images/Leaves.png",
+      "background": "images/tile/Leaves.png",
       "width": 130,
       "height": 130,
       "bounds": {
@@ -13,21 +20,15 @@
       }
     },
     "bark": {
-      "background": "images/Bark.png",
+      "background": "images/tile/Bark.png",
       "width": 130,
       "height": 130
     },
     "dirt": {
-      "background": "images/dirtCentre.png",
+      "background": "images/tile/dirtCentre.png",
       "width": 240,
       "height": 199
     }
-  },
-
-  "background": {
-    "file": "images/Background.png",
-    "top": 0,
-    "left": 0
   },
 
   "midground": [

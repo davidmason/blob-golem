@@ -5,6 +5,7 @@ var Game = require('crtrdg-gameloop'),
     Enemy = require('./entity/enemy'),
     loadImages = require('image-batch-loader'),
     loadSounds = require('./load-audio'),
+    loadMap = require('./map/load-map'),
     drawBigText = require('./draw-big-text'),
     GameTimer = require('./game-timer');
 
@@ -13,6 +14,7 @@ var imagesToLoad = ['images/entity/blob-concept.png'];
 var addEntity = function (entityDescriptor) {
   imagesToLoad.push(entityDescriptor.sprite.file);
 }
+
 
 var blob = require('./../entities/blob.json');
 addEntity(blob);
@@ -40,6 +42,10 @@ var game = new Game({
   height: 650,
   backgroundColor: '#6cf'
 });
+
+// appears not to be possible to pass in a string to use for require
+var map = require('./../maps/testmap.json');
+loadMap(game, map);
 
 var keyboard = new Keyboard(game);
 var mouse = new Mouse(game);
@@ -112,10 +118,6 @@ enemy.on('collision', function (entity) {
 });
 
 game.on('update', function (interval) {
-});
-
-game.on('draw-background', function (context) {
-  console.log('got a draw-background event');
 });
 
 // FIXME all this stuff should go in another class
