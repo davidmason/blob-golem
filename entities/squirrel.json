@@ -1,0 +1,13 @@
+{
+  "name": "Squirrel",
+  "width": 180,
+  "height": 397,
+  "sprite": {
+    "file": "images/entity/spritesheet-squirrel.png",
+    "width": 180,
+    "height": 397,
+    "animations": {
+      "move": [[0,0, 300], [0,1, 300]]
+    }
+  }
+}

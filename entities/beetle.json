@@ -1,0 +1,13 @@
+{
+  "name": "Beetle",
+  "width": 160,
+  "height": 80,
+  "sprite": {
+    "file": "images/entity/spritesheet-beetle.png",
+    "width": 160,
+    "height": 80,
+    "animations": {
+      "move": [[0,0], [0,1], [0,2], [0,3]]
+    }
+  }
+}

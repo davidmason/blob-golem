@@ -1,0 +1,13 @@
+{
+  "name": "Chipmunk",
+  "width": 153,
+  "height": 220,
+  "sprite": {
+    "file": "images/entity/spritesheet-chipmunk.png",
+    "width": 153,
+    "height": 220,
+    "animations": {
+      "idle": [[0,0, 100], [0,1, 100], [0,2, 100], [0,3, 100]]
+    }
+  }
+}
