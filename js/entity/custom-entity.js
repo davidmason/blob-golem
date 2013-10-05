@@ -11,14 +11,23 @@ function CustomEntity() {
 }
 
 CustomEntity.prototype.loadOptions = function (options) {
+  this.descriptor = options.descriptor;
+
+  if (this.descriptor) {
+    this.size = {
+      x: this.descriptor.width,
+      y: this.descriptor.height
+    }
+  } else {
+    this.size = {
+      x: options.size.x,
+      y: options.size.y
+    };
+  }
+
   this.position = {
     x: options.position.x,
     y: options.position.y
-  };
-
-  this.size = {
-    x: options.size.x,
-    y: options.size.y
   };
 
   if (options.velocity) {
@@ -61,3 +70,20 @@ CustomEntity.prototype.checkCollisions = function () {
     }
   }
 }
+
+CustomEntity.prototype.startAnimation = function (animationName) {
+  var animation = this.descriptor.sprite.animations[animationName];
+
+  if (animation) {
+    this.animation = {
+      name: animationName,
+      length: animation.length,
+      frame: 0,
+      remainingTime: animation[0][2] || 100,
+      frames: animation
+    };
+  } else {
+    console.log('failed to initiate animation ' + animationName);
+  }
+
+};

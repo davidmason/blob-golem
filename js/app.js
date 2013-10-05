@@ -4,31 +4,50 @@ var Game = require('crtrdg-gameloop'),
     Player = require('./entity/player'),
     Enemy = require('./entity/enemy'),
     loadImages = require('./load-images'),
+    loadSounds = require('./load-audio'),
     drawBigText = require('./draw-big-text'),
     GameTimer = require('./game-timer');
 
-// FIXME group modules together soon
+var imagesToLoad = ['images/entity/blob-concept.png'];
+
+var addEntity = function (entityDescriptor) {
+  imagesToLoad.push(entityDescriptor.sprite.file);
+}
+
+var blob = require('./../entities/blob.json');
+addEntity(blob);
 
 var images = {};
 var imagesLoaded = false;
 
-loadImages(['images/entity/blob-concept.png'], function(loadedImages) {
+loadImages(imagesToLoad, function(loadedImages) {
   images = loadedImages;
   imagesLoaded = true;
   console.log("loaded all images");
+});
+
+var sounds = {};
+var soundsLoaded = false;
+loadSounds(['audio/effects/In_water'], function (loadedSounds) {
+  sounds = loadedSounds;
+  soundsLoaded = true;
+  console.log("loaded all sounds");
 });
 
 var game = new Game({
   canvas: 'main-canvas',
   width: 1200,
   height: 650,
-  backgroundColor: '#4eadfe'
+  backgroundColor: '#6cf'
 });
 var keyboard = new Keyboard(game);
 var mouse = new Mouse(game);
 
 mouse.on('click', function(location){
   console.log("clicked at location (" + location.x + ", " + location.y + ")");
+  if (soundsLoaded) {
+    sounds['audio/effects/In_water'].play();
+  }
 });
 
 keyboard.on('keydown', function(keyCode){
@@ -63,7 +82,11 @@ player.on('draw', function (context) {
 });
 
 player.on('collision', function (entity) {
-  console.log("Ouch!");
+  // Note: this plays a sound every frame
+  // TODO add collision-start, collision-end
+  if (soundsLoaded) {
+    sounds['audio/effects/In_water'].play();
+  }
 });
 
 var enemy = new Enemy({
@@ -89,6 +112,57 @@ enemy.on('collision', function (entity) {
 });
 
 game.on('update', function (interval) {
+});
+
+
+// FIXME all this stuff should go in another class
+var frenemy = new Enemy({
+  descriptor: blob,
+  position: { x: 460, y: 250 },
+  speed: 1
+});
+frenemy.addTo(game);
+
+frenemy.startAnimation('stationary');
+
+var defaultFrameMillis = 100;
+
+frenemy.on('update', function (interval) {
+
+  this.position.x = ((this.position.x + interval / 2 + this.size.x) % (game.width + this.size.x)) - this.size.x;
+
+  var anim = this.animation;
+  var animName = anim.name;
+  if (animName === 'leap' && anim.frame === anim.frames.length - 1) {
+    this.startAnimation('stationary');
+  } else if (anim.name === 'stationary' && this.position.x > 150 && this.position.x <= 200) {
+    this.startAnimation('leap');
+  }
+
+  anim.remainingTime -= interval;
+  if (anim.remainingTime <= 0) {
+    anim.frame = (this.animation.frame + 1) % this.animation.length;
+    anim.remainingTime = (anim.frames[anim.frame][2] || defaultFrameMillis) + anim.remainingTime;
+  }
+});
+
+frenemy.on('draw', function drawFrenemy (context) {
+
+  // TODO move all this to CustomEntity
+
+  if (imagesLoaded) {
+
+    var sprite = this.descriptor.sprite;
+    var anim = this.animation;
+
+    var w = sprite.width, h = sprite.height;
+    var img = images[sprite.file];
+    var frame = anim.frames[anim.frame];
+
+    context.drawImage(img,
+                frame[0] * w, frame[1] * h, w, h,
+                this.position.x, this.position.y, this.size.x, this.size.y);
+  }
 });
 
 game.on('draw', function (context) {
