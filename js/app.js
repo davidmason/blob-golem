@@ -38,7 +38,7 @@ var game = new Game({
   canvas: 'main-canvas',
   width: 1200,
   height: 650,
-  backgroundColor: '#4eadfe'
+  backgroundColor: '#6cf'
 });
 var keyboard = new Keyboard(game);
 var mouse = new Mouse(game);
@@ -117,21 +117,47 @@ game.on('update', function (interval) {
 
 // FIXME all this stuff should go in another class
 var frenemy = new Enemy({
-  position: { x: 500, y: 200 },
-  size: { x: 150, y: 150 },
+  descriptor: blob,
+  position: { x: 460, y: 250 },
   speed: 1
 });
 frenemy.addTo(game);
 
-frenemy.animation = "stationary";
+frenemy.startAnimation('stationary');
+
+var defaultFrameMillis = 100;
+
+frenemy.on('update', function (interval) {
+
+  this.position.x = ((this.position.x + interval / 2 + this.size.x) % (game.width + this.size.x)) - this.size.x;
+
+  var anim = this.animation;
+  var animName = anim.name;
+  if (animName === 'leap' && anim.frame === anim.frames.length - 1) {
+    this.startAnimation('stationary');
+  } else if (anim.name === 'stationary' && this.position.x > 150 && this.position.x <= 200) {
+    this.startAnimation('leap');
+  }
+
+  anim.remainingTime -= interval;
+  if (anim.remainingTime <= 0) {
+    anim.frame = (this.animation.frame + 1) % this.animation.length;
+    anim.remainingTime = (anim.frames[anim.frame][2] || defaultFrameMillis) + anim.remainingTime;
+  }
+});
 
 frenemy.on('draw', function drawFrenemy (context) {
+
+  // TODO move all this to CustomEntity
+
   if (imagesLoaded) {
-    // just drawing first frame of first animation for now...
-    var sprite = blob.sprite;
+
+    var sprite = this.descriptor.sprite;
+    var anim = this.animation;
+
     var w = sprite.width, h = sprite.height;
     var img = images[sprite.file];
-    var frame = blob.sprite.animations[frenemy.animation][0];
+    var frame = anim.frames[anim.frame];
 
     context.drawImage(img,
                 frame[0] * w, frame[1] * h, w, h,
