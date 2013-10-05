@@ -22,7 +22,8 @@
     "crtrdg-mouse": "0.0.3",
     "aabb-2d": "0.0.0",
     "inherits": "~2.0.1",
-    "audio-fx": "git://github.com/davidmason/javascript-audio-fx.git"
+    "audio-fx": "git://github.com/davidmason/javascript-audio-fx.git",
+    "image-batch-loader": "git://github.com/davidmason/image-batch-loader.git"
   },
   "devDependencies": {
     "beefy": "~0.4.0",
