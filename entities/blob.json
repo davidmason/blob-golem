@@ -1,0 +1,14 @@
+{
+  "name": "Blob",
+  "width": 170,
+  "height": 170,
+  "sprite": {
+    "file": "images/entity/spritesheet-blob.png",
+    "width": 340,
+    "height": 340,
+    "animations": {
+      "stationary": [[0,0, 300], [0,1, 300], [0,2, 300], [0,3, 300], [0,4, 300]],
+      "leap": [[0,0, 150], [1,0, 150], [2,0, 150], [1,1, 200], [2,1, 200]]
+    }
+  }
+}

@@ -8,12 +8,19 @@ var Game = require('crtrdg-gameloop'),
     drawBigText = require('./draw-big-text'),
     GameTimer = require('./game-timer');
 
-// FIXME group modules together soon
+var imagesToLoad = ['images/entity/blob-concept.png'];
+
+var addEntity = function (entityDescriptor) {
+  imagesToLoad.push(entityDescriptor.sprite.file);
+}
+
+var blob = require('./../entities/blob.json');
+addEntity(blob);
 
 var images = {};
 var imagesLoaded = false;
 
-loadImages(['images/entity/blob-concept.png'], function(loadedImages) {
+loadImages(imagesToLoad, function(loadedImages) {
   images = loadedImages;
   imagesLoaded = true;
   console.log("loaded all images");
@@ -105,6 +112,31 @@ enemy.on('collision', function (entity) {
 });
 
 game.on('update', function (interval) {
+});
+
+
+// FIXME all this stuff should go in another class
+var frenemy = new Enemy({
+  position: { x: 500, y: 200 },
+  size: { x: 150, y: 150 },
+  speed: 1
+});
+frenemy.addTo(game);
+
+frenemy.animation = "stationary";
+
+frenemy.on('draw', function drawFrenemy (context) {
+  if (imagesLoaded) {
+    // just drawing first frame of first animation for now...
+    var sprite = blob.sprite;
+    var w = sprite.width, h = sprite.height;
+    var img = images[sprite.file];
+    var frame = blob.sprite.animations[frenemy.animation][0];
+
+    context.drawImage(img,
+                frame[0] * w, frame[1] * h, w, h,
+                this.position.x, this.position.y, this.size.x, this.size.y);
+  }
 });
 
 game.on('draw', function (context) {
