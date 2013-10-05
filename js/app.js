@@ -4,6 +4,7 @@ var Game = require('crtrdg-gameloop'),
     Player = require('./entity/player'),
     Enemy = require('./entity/enemy'),
     loadImages = require('./load-images'),
+    loadSounds = require('./load-audio'),
     drawBigText = require('./draw-big-text'),
     GameTimer = require('./game-timer');
 
@@ -18,6 +19,14 @@ loadImages(['images/entity/blob-concept.png'], function(loadedImages) {
   console.log("loaded all images");
 });
 
+var sounds = {};
+var soundsLoaded = false;
+loadSounds(['audio/effects/In_water'], function (loadedSounds) {
+  sounds = loadedSounds;
+  soundsLoaded = true;
+  console.log("loaded all sounds");
+});
+
 var game = new Game({
   canvas: 'main-canvas',
   width: 1200,
@@ -29,6 +38,9 @@ var mouse = new Mouse(game);
 
 mouse.on('click', function(location){
   console.log("clicked at location (" + location.x + ", " + location.y + ")");
+  if (soundsLoaded) {
+    sounds['audio/effects/In_water'].play();
+  }
 });
 
 keyboard.on('keydown', function(keyCode){
@@ -63,7 +75,11 @@ player.on('draw', function (context) {
 });
 
 player.on('collision', function (entity) {
-  console.log("Ouch!");
+  // Note: this plays a sound every frame
+  // TODO add collision-start, collision-end
+  if (soundsLoaded) {
+    sounds['audio/effects/In_water'].play();
+  }
 });
 
 var enemy = new Enemy({
