@@ -89,8 +89,6 @@ enemy.on('collision', function (entity) {
 });
 
 game.on('update', function (interval) {
-  // just testing keyboard input and update
-  if ('A' in keyboard.keysDown) console.log("it's A!");
 });
 
 game.on('draw', function (context) {
