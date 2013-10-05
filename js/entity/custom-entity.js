@@ -21,6 +21,17 @@ CustomEntity.prototype.loadOptions = function (options) {
     y: options.size.y
   };
 
+  if (options.velocity) {
+    this.velocity = {
+      x: options.velocity.x,
+      y: options.velocity.y
+    };
+  } else {
+    this.velocity = { x: 0, y: 0 };
+  }
+
+  this.speed = options.speed || 0;
+
   this.setBoundingBox();
 
   this.on('update', function(interval) {
@@ -29,9 +40,14 @@ CustomEntity.prototype.loadOptions = function (options) {
   });
 };
 
-CustomEntity.prototype.move = function (velocity) {
-  this.position.x += velocity.x;
-  this.position.y += velocity.y;
+CustomEntity.prototype.move = function (velocity, delta) {
+  if (delta) {
+    this.position.x += velocity.x * delta;
+    this.position.y += velocity.y * delta;
+  } else {
+    this.position.x += velocity.x;
+    this.position.y += velocity.y;
+  }
 }
 
 CustomEntity.prototype.checkCollisions = function () {

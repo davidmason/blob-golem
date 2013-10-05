@@ -4,7 +4,7 @@ var Game = require('crtrdg-gameloop'),
     Player = require('./entity/player'),
     Enemy = require('./entity/enemy'),
     loadImages = require('./load-images'),
-    drawLoading = require('./draw-loading'),
+    drawBigText = require('./draw-big-text'),
     GameTimer = require('./game-timer');
 
 // FIXME group modules together soon
@@ -31,19 +31,30 @@ mouse.on('click', function(location){
   console.log("clicked at location (" + location.x + ", " + location.y + ")");
 });
 
+keyboard.on('keydown', function(keyCode){
+  if (keyCode === 'P'){
+    if (game.ticker.paused === true){
+      game.resume();
+    } else {
+      game.pause();
+    }
+  }
+});
+
 var gameTimer = new GameTimer();
 gameTimer.addTo(game);
 
 var player = new Player({
   position: { x: 100, y: 100 },
-  size: { x: 100, y: 100 }
+  size: { x: 100, y: 100 },
+  speed: 100
 });
 player.addTo(game);
 
 player.on('update', function (interval) {
-  this.move({ x: 3, y: 3});
-  this.position.x = this.position.x % game.width;
-  this.position.y = this.position.y % game.height;
+  var delta = (interval / 1000);
+  this.keyboardInput(keyboard);
+  this.move(this.velocity, delta);
 });
 
 player.on('draw', function (context) {
@@ -57,7 +68,8 @@ player.on('collision', function (entity) {
 
 var enemy = new Enemy({
   position: { x: 300, y: 300 },
-  size: { x: 50, y: 50 }
+  size: { x: 50, y: 50 },
+  speed: 2
 });
 enemy.addTo(game);
 
@@ -77,8 +89,6 @@ enemy.on('collision', function (entity) {
 });
 
 game.on('update', function (interval) {
-  // just testing keyboard input and update
-  if ('A' in keyboard.keysDown) console.log("it's A!");
 });
 
 game.on('draw', function (context) {
@@ -88,8 +98,10 @@ game.on('draw', function (context) {
   if (imagesLoaded) {
     img = images['images/entity/blob-concept.png'];
     context.drawImage(img, 0, 0);
+    if (game.paused) drawBigText(context, game, "paused", 0.75);
+    else drawBigText(context, game, "playing", gameTimer.throbber());
+  } else {
+    drawBigText(context, game, "loading", gameTimer.throbber);
   }
 
-  // testing loading message
-  drawLoading(context, game, gameTimer.throbber());
 });
