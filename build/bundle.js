@@ -24,10 +24,10 @@ module.exports={
     "animations": {
       "stationary": [[0,0, 150], [0,1, 150], [0,2, 150], [0,3, 150], [0,4, 150], [0,3, 150], [0,1, 150], [0,0, 150]],
       "leap": [[0,0], [1,0], [1,1], [1,2], [1,3], [1,4], [1,5], [1,6], [1,7], [0,0]],
-	  "chomp": [[0,0, 175], [0,5, 175], [0,6, 175], [0,7, 175], [0,8, 175], [1,7, 175]],
-	  "helicopter blob": [[5,1, 150], [6,1, 150]],
-	  "helicopter arm": [[2,1], [3,1], [4,1]],
-	  "helicopter arm idle": [[0,2, 200], [0,3, 200], [0,4, 200], [0,5, 200], [0,6, 200], [0,5, 200], [0,4, 200], [0,3, 200]]
+      "chomp": [[0,0, 175], [0,5, 175], [0,6, 175], [0,7, 175], [0,8, 175], [1,7, 175]],
+      "helicopter blob": [[5,1, 150], [6,1, 150]],
+      "helicopter arm": [[2,1], [3,1], [4,1]],
+      "helicopter arm idle": [[0,2, 200], [0,3, 200], [0,4, 200], [0,5, 200], [0,6, 200], [0,5, 200], [0,4, 200], [0,3, 200]]
     }
   }
 }
@@ -256,6 +256,12 @@ player.on('draw', function (ctx) {
 });
 
 player.on('collision', function (entity) {
+  if (player.animation.name !== 'chomp') {
+    player.startAnimation('chomp');
+  }
+
+  // fixme: how to stop it?
+
   // Note: this plays a sound every frame
   // TODO add collision-start, collision-end
   if (soundsLoaded) {
@@ -413,31 +419,42 @@ var addFrog = function(x, y) {
   addEnemy(frog, 'idle');
 };
 
-addFrog(1650, 700);
-addFrog(2400, 700);
-addFrog(2670, 560);
-addFrog(2730, 570);
+addFrog(1600, 650);
+addFrog(2350, 650);
+addFrog(2630, 510);
+addFrog(2680, 520);
 
 
-var chipmunk1 = new Enemy({
-  descriptor: chipmunkDescriptor,
-  position: { x: 600, y: 200 },
-  size: { x: 100, y: 100 },
-  speed: 400,
-  gravity: true
-});
-addEnemy(chipmunk1, 'idle');
 
-var squirrel1 = new Enemy({
-  descriptor: squirrelDescriptor,
-  position: { x: 700, y: 200 },
-  size: { x: 100, y: 100 },
-  speed: 400,
-  gravity: true
-});
-addEnemy(squirrel1, 'move');
+var addChipmunk = function (x, y) {
+  var chipmunk1 = new Enemy({
+    descriptor: chipmunkDescriptor,
+    position: { x: x, y: y },
+    size: { x: 100, y: 100 },
+    speed: 400,
+    gravity: true
+  });
+  addEnemy(chipmunk1, 'idle');
+};
 
+addChipmunk(1080, 580);
+addChipmunk(1300, 700);
 
+var addSquirrel = function (x, y) {
+  var squirrel1 = new Enemy({
+    descriptor: squirrelDescriptor,
+    position: { x: x, y: y },
+    size: { x: 100, y: 100 },
+    speed: 400,
+    gravity: true
+  });
+  addEnemy(squirrel1, 'move');
+  return squirrel1;
+};
+
+addSquirrel(950, 50);
+var squir = addSquirrel(1260, 339);
+squir.left = true;
 
 player.addTo(game);
 
