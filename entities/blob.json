@@ -1,7 +1,7 @@
 {
   "name": "Blob",
-  "width": 340,
-  "height": 340,
+  "width": 170,
+  "height": 170,
   "sprite": {
     "file": "images/entity/spritesheet-blob.png",
     "width": 340,
