@@ -1,0 +1,576 @@
+{
+  "name": "Tutorial",
+  "tiles" : {
+    "laubaiLeaves": {
+      "background": "images/leavesTransparent.png",
+      "width": 130,
+      "height": 130,
+      "bounds": {
+        "x": 15,
+        "y": 15,
+        "width": 100,
+        "height": 100
+      }
+    },
+	"laubaiClearLeaves": {
+      "background": "images/leavesTransparent.png",
+      "width": 50,
+      "height": 50,
+      "bounds": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0
+      }
+    },
+    "bark": {
+      "background": "images/Bark.png",
+      "width": 130,
+      "height": 130,
+      "bounds": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0
+      }
+    },
+    "laubaiBottomBranch": {
+      "background": "images/barkBottomTransparent.png",
+      "width": 30,
+      "height": 30,
+      "bounds": {
+        "x": 0,
+        "y": 5,
+        "width": 30,
+        "height": 20
+      }
+    },
+    "laubaiTopBranch": {
+      "background": "images/barkTopTransparent.png",
+      "width": 30,
+      "height": 30,
+      "bounds": {
+        "x": 0,
+        "y": 5,
+        "width": 30,
+        "height": 20
+      }
+	}, 	  
+    "grass": {
+      "background": "images/grass.png",
+      "width": 120,
+      "height": 100,
+      "bounds": {
+        "x": 0,
+        "y": 95,
+        "width": 120,
+        "height": 5
+      }
+    },
+    "dirt": {
+      "background": "images/dirtCentre.png",
+      "width": 240,
+      "height": 199
+    }, 
+	
+  	"ame_grass": {
+      "background": "images/grass.png",
+      "width": 120,
+      "height": 100, 
+	  "bounds": {
+        "x": 0,
+        "y": 90,
+        "width": 120,
+        "height": 10
+      }
+    },  
+		"ame_rockSmall": {
+      "background": "images/dirtRock.png",
+      "width": 75,
+      "height": 100,
+	  "bounds": {
+        "x": 0,
+        "y": 20,
+        "width": 75,
+        "height": 80
+      }	  
+    }, 
+	"ame_rockLong": {
+      "background": "images/dirtRock.png",
+      "width": 200,
+      "height": 75, 
+	  "bounds": {
+        "x": 0,
+        "y": 20,
+        "width": 200,
+        "height": 60
+      }	   
+	}, 
+	"ame_rockHuge": {
+      "background": "images/dirtRock.png",
+      "width": 600,
+      "height": 100, 
+	  "bounds": {
+        "x": 0,
+        "y": 20,
+        "width": 600,
+        "height": 100
+      }	  
+    },
+	"ame_tunnel": {
+      "background": "images/dirtDugOutCentre.png",
+      "width": 240,
+      "height": 199, 
+	  "bounds": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0
+      }
+    }, 
+	"dirt1": {
+	  "background": "images/dirtCentre.png",
+      "width": 240,
+      "height": 199,
+	  "bounds": {
+		"x": 0,
+        "y": 0,
+        "width": 179,
+        "height": 199
+		}
+	  
+	},
+	
+	"dirt2": {
+	  "background": "images/dirtCentre.png",
+      "width": 240,
+      "height": 199,
+	  "bounds": {
+		"x": 172,
+        "y": 0,
+        "width": 18,
+        "height": 119
+		}
+	  
+	},
+	"dirt3": {
+	  "background": "images/dirtCentre.png",
+      "width": 240,
+      "height": 199,
+	  "bounds": {
+		"x": 171,
+        "y": 0,
+        "width": 69,
+        "height": 104
+		}
+	  
+	},
+	"dirt4": {
+	  "background": "images/dirtCentre.png",
+      "width": 240,
+      "height": 199,
+	  "bounds": {
+		"x": 0,
+        "y": 0,
+        "width": 107,
+        "height": 69
+		}
+	  
+	},
+	"dirt5": {
+	  "background": "images/dirtCentre.png",
+      "width": 240,
+      "height": 199,
+	  "bounds": {
+		"x": 0,
+        "y": 0,
+        "width": 57,
+        "height": 118
+		}
+	  
+	},
+	"dirt6": {
+	  "background": "images/dirtCentre.png",
+      "width": 240,
+      "height": 199,
+	  "bounds": {
+		"x": 34,
+        "y": 0,
+        "width": 206,
+        "height": 199
+		}
+	  
+	},
+	"dirt7": {
+	  "background": "images/dirtCentre.png",
+      "width": 240,
+      "height": 199,
+	  "bounds": {
+		"x": 0,
+        "y": 0,
+        "width": 196,
+        "height": 135
+		}
+	  
+	},
+	"dirt8": {
+	  "background": "images/dirtCentre.png",
+      "width": 240,
+      "height": 199,
+	  "bounds": {
+		"x": 0,
+        "y": 0,
+        "width": 102,
+        "height": 114
+		}
+	  
+	},
+	"dirt9": {
+	  "background": "images/dirtCentre.png",
+      "width": 240,
+      "height": 199,
+	  "bounds": {
+		"x": 0,
+        "y": 0,
+        "width": 240,
+        "height": 67
+		}
+	  
+	},
+	"rockSmall": {
+      "background": "images/dirtRock.png",
+      "width": 75,
+      "height": 100,
+	  "bounds": {
+        "x": 0,
+        "y": 20,
+        "width": 75,
+        "height": 80
+      }	  
+    },
+	"water": {
+	  "background": "images/water.png",
+	  "width": 107,
+	  "height": 89,
+	  "bounds": {
+		"x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0
+		}
+	},
+	
+	"dug": {
+	  "background": "images/dirtDugOutCentre.png",
+	  "width": 240,
+	  "height": 199,
+	  "bounds": {
+		"x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0
+	  }
+	  }
+	},
+	
+
+  "background": {
+    "file": "images/sky.png",
+    "top": 0,
+    "left": 0
+  },
+
+  "midground": [
+  
+
+    ["dirt", [-220,0]],
+    ["dirt", [-220,200]],
+    ["dirt", [-220,400]],
+    ["dirt", [-220,600]],
+    ["dirt", [-220,800]],
+    ["dirt", [-220,1000]],
+    ["dirt", [-220,1200]],
+
+
+
+    ["dirt", [0, 1000]],
+    ["dirt", [240, 1000]],
+    ["dirt", [480, 1000]],
+    ["dirt", [720, 1000]],
+    ["dirt", [960, 1000]],
+    ["dirt", [1200, 1000]],
+    ["dirt", [1440, 1000]],
+    ["dirt", [1680, 1000]],
+
+    ["grass", [0,900]],
+    ["grass", [120,900]],
+    ["grass", [240,900]],
+    ["grass", [360,900]],
+    ["grass", [480,900]],
+    ["grass", [600,900]],
+    ["grass", [720,900]],
+    ["grass", [840,900]],
+    ["grass", [960,900]],
+    ["grass", [1080,900]],
+    ["grass", [1200,900]],
+    ["grass", [1320,900]],
+    ["grass", [1440,900]],
+    ["grass", [1560,900]],
+    ["grass", [1680,900]],
+
+    ["bark", [1100, 950]],
+    ["bark", [1175, 910]],
+    ["bark", [1200, 875]],
+    ["bark", [1225, 910]],
+    ["bark", [1250, 980]],
+    ["bark", [1200, 745]],
+    ["bark", [1200, 615]],
+    ["bark", [1200, 485]],
+    ["bark", [1200, 355]],
+    ["bark", [1200, 225]],
+    ["grass", [1100, 900]],
+    ["grass", [1220, 900]],
+    ["grass", [1440, 900]],
+    ["dirt", [920, 1000]],
+    ["dirt", [1160, 1000]],
+    ["dirt", [1400, 1000]],
+
+    ["laubaiLeaves", [950, 74]],
+    ["laubaiLeaves", [1000, 25]],
+    ["laubaiLeaves", [1000, 125]],
+    ["laubaiLeaves", [1050, -25]],
+    ["laubaiLeaves", [1050, 175]],
+    ["laubaiLeaves", [1100, -75]],
+    ["laubaiLeaves", [1100, 25]],
+    ["laubaiLeaves", [1100, 125]],
+    ["laubaiLeaves", [1150, -25]],
+    ["laubaiLeaves", [1150, 175]],
+    ["laubaiLeaves", [1200, -75]],
+    ["laubaiLeaves", [1200, 25]],
+    ["laubaiLeaves", [1200, 125]],
+    ["laubaiLeaves", [1300, -25]],
+    ["laubaiLeaves", [1300, 75]],
+    ["laubaiLeaves", [1300, 175]],
+    ["laubaiLeaves", [1250, -75]],
+    ["laubaiLeaves", [1350, -25]],
+    ["laubaiLeaves", [1350, 75]],
+    ["laubaiLeaves", [1400, 125]],
+
+    ["dirt", [1300, 950]],
+    ["dirt", [1400, 900]],
+    ["dirt", [1600, 825]],
+    ["dirt", [1700, 800]],
+    ["dirt", [1750, 500]],
+    ["dirt", [1750, 600]],
+    ["dirt", [1750, 800]],
+    ["dirt", [1750, 900]],
+
+    ["laubaiTopBranch", [1090, 690]],
+    ["laubaiTopBranch", [1120, 690]],
+    ["laubaiTopBranch", [1150, 690]],
+    ["laubaiTopBranch", [1180, 690]],
+    ["laubaiBottomBranch", [1090, 695]],
+    ["laubaiBottomBranch", [1120, 695]],
+    ["laubaiBottomBranch", [1150, 695]],
+    ["laubaiBottomBranch", [1180, 695]],
+    ["laubaiClearLeaves", [1020, 685]],
+    ["laubaiClearLeaves", [1050, 665]],
+    ["laubaiClearLeaves", [1050, 695]],
+    ["laubaiClearLeaves", [1080, 665]],
+    ["laubaiClearLeaves", [1080, 695]],
+    ["laubaiClearLeaves", [1110, 685]],
+
+    ["laubaiTopBranch", [1060, 500]],
+    ["laubaiTopBranch", [1090, 500]],
+    ["laubaiTopBranch", [1120, 500]],
+    ["laubaiTopBranch", [1150, 500]],
+    ["laubaiTopBranch", [1180, 500]],
+    ["laubaiBottomBranch", [1060, 505]],
+    ["laubaiBottomBranch", [1090, 505]],
+    ["laubaiBottomBranch", [1120, 505]],
+    ["laubaiBottomBranch", [1150, 505]],
+    ["laubaiBottomBranch", [1180, 505]],
+    ["laubaiClearLeaves", [980, 490]],
+    ["laubaiClearLeaves", [1000, 460]],
+    ["laubaiClearLeaves", [1000, 510]],
+    ["laubaiClearLeaves", [1030, 475]],
+    ["laubaiClearLeaves", [1030, 500]],
+    ["laubaiClearLeaves", [1040, 490]],
+
+    ["laubaiTopBranch", [1330, 800]],
+    ["laubaiTopBranch", [1360, 800]],
+    ["laubaiTopBranch", [1390, 800]],
+    ["laubaiBottomBranch", [1330, 805]],
+    ["laubaiBottomBranch", [1360, 805]],
+    ["laubaiBottomBranch", [1390, 805]],
+    ["laubaiClearLeaves", [1380, 780]],
+    ["laubaiClearLeaves", [1400, 775]],
+    ["laubaiClearLeaves", [1400, 795]],
+    ["laubaiClearLeaves", [1420, 780]],
+
+    ["laubaiTopBranch", [1330, 620]],
+    ["laubaiTopBranch", [1360, 620]],
+    ["laubaiTopBranch", [1390, 620]],
+    ["laubaiTopBranch", [1420, 620]],
+    ["laubaiTopBranch", [1400, 620]],
+    ["laubaiBottomBranch", [1330, 625]],
+    ["laubaiBottomBranch", [1360, 625]],
+    ["laubaiBottomBranch", [1390, 625]],
+    ["laubaiBottomBranch", [1420, 625]],
+    ["laubaiBottomBranch", [1400, 625]],
+    ["laubaiClearLeaves", [1460, 600]],
+    ["laubaiClearLeaves", [1380, 600]],
+    ["laubaiClearLeaves", [1400, 630]],
+    ["laubaiClearLeaves", [1400, 600]],
+    ["laubaiClearLeaves", [1430, 635]],
+    ["laubaiClearLeaves", [1430, 610]],
+
+    ["laubaiTopBranch", [1330, 400]],
+    ["laubaiTopBranch", [1360, 400]],
+    ["laubaiTopBranch", [1390, 400]],
+    ["laubaiTopBranch", [1420, 400]],
+    ["laubaiTopBranch", [1450, 400]],
+    ["laubaiTopBranch", [1480, 400]],
+    ["laubaiBottomBranch", [1330, 410]],
+    ["laubaiBottomBranch", [1360, 410]],
+    ["laubaiBottomBranch", [1390, 410]],
+    ["laubaiBottomBranch", [1420, 410]],
+    ["laubaiBottomBranch", [1450, 410]],
+    ["laubaiBottomBranch", [1480, 410]],
+    ["laubaiClearLeaves", [1400, 390]],
+    ["laubaiClearLeaves", [1400, 400]],
+    ["laubaiClearLeaves", [1430, 390]],
+    ["laubaiClearLeaves", [1430, 400]],
+    ["laubaiClearLeaves", [1460, 390]],
+    ["laubaiClearLeaves", [1460, 400]],
+    ["laubaiClearLeaves", [1490, 360]],
+    ["laubaiClearLeaves", [1490, 390]],
+    ["laubaiClearLeaves", [1490, 420]],
+    ["laubaiClearLeaves", [1520, 375]],
+    ["laubaiClearLeaves", [1520, 405]],
+    ["laubaiClearLeaves", [1550, 385]],
+	
+    ["dirt", [1955, 833]],
+    ["dirt", [1948, 643]],
+    ["dirt", [2100, 1192]],
+	["dirt", [2300, 1192]],
+    ["dirt", [2500, 1192]],
+    ["dirt", [1934, 989]],
+	["dirt", [1809, 1149]],
+	
+	["dirt", [2881, 278]],	
+	["dirt", [2641, 278]],
+	["dirt5", [2584, 367]],
+	["dirt3", [2237, 367]],
+	["dirt2", [2237, 278]],
+	["dirt1", [1990, 278]],
+	["dirt", [1971, 476]],
+	["dirt", [2015, 595]],
+	["dirt", [2056, 671]],
+	["dirt", [2149, 717]],
+	["dirt8", [2536, 685]],
+	["dirt7", [2389, 717]],
+	["dirt4", [2477, 417]],
+	["dirt", [2881, 477]],
+	["dirt6", [2824, 477]],
+	["dirt9", [2629, 633]],
+	["dirt", [2259, 807]],
+	["dirt", [1750, 278]],
+	["dirt", [1750, 477]],
+	["dirt", [1750, 676]],
+	["dirt", [1750, 875]],
+	["dirt", [1750, 1074]],
+	["dirt", [1991, 676]],
+	["dirt", [1991, 875]],
+	["dirt", [1991, 1074]],
+	["dirt", [2019, 807]],
+	["dirt", [2682, 1051]],
+	["dirt", [2738, 998]],
+	["dirt", [2825, 896]],
+	
+	["ame_grass", [1750, 178]],
+	["ame_grass", [1870, 178]],
+	["ame_grass", [1990, 178]],
+	["ame_grass", [2050, 178]],
+	["ame_grass", [2643, 178]],
+	["ame_grass", [2762, 178]],
+	
+	["dug", [2822, 847]],
+	["dug", [2775, 664]],
+	["dug", [2169, 278]],
+	["dug", [2211, 397]],
+	["dug", [2255, 472]],
+	["dug", [2296, 518]],	
+	["dug", [2389, 487]],	
+	["dug", [2617, 435]],
+	
+	["dug", [2640, 698]],
+	["dug", [2585, 799]],
+	["dug", [2498, 853]],
+	["dug", [2442, 1006]],
+	["dug", [2202, 1006]],
+	
+	["water", [2477, 328]],
+	["water", [2534, 278]],
+	["water", [2427, 278]],
+	
+	["rockSmall", [2571, 1111]],
+	["rockSmall", [2294, 330]],
+	
+	["ame_tunnel", [3119, 378]],
+	["ame_tunnel", [3119, 574]],
+	["ame_tunnel", [3119, 771]],
+	["ame_tunnel", [3355, 574]],
+	["ame_tunnel", [3355, 771]],
+	["ame_tunnel", [3595, 574]],
+	["ame_tunnel", [3775, 500]],
+	["ame_tunnel", [3592, 770]],
+	["ame_tunnel", [3829, 576]],
+	["ame_tunnel", [3832, 769]],
+	["ame_tunnel", [3120, 969]],
+	["ame_tunnel", [3351, 965]],
+	["ame_tunnel", [3590, 968]],
+	["ame_tunnel", [2881, 695]],
+	["ame_tunnel", [2881, 892]],
+	["ame_tunnel", [3826, 965]],
+	["ame_tunnel", [2881, 1080]],
+	
+	["ame_rockSmall", [3085, 419]], 
+	["ame_rockSmall", [3270, 500]], 
+	["ame_rockSmall", [3948, 450]],
+	
+	["ame_grass", [2880, 200]],
+	["ame_grass", [3000, 200]],
+	["ame_grass", [3300, 278]],
+	["ame_grass", [3418, 278]],
+    ["ame_grass", [3538, 278]],
+	["ame_grass", [3658, 278]],
+	["ame_grass", [3960, 400]],
+	
+	["dirt", [2880, 300]], 
+	["dirt", [3301, 378]],
+	["dirt", [2880, 1000]],
+	["dirt", [2880, 499]],
+	["dirt", [3120, 1150]],
+	["dirt", [3360, 1150]],
+	["dirt", [3600, 1150]],
+	["dirt", [3840, 1150]],
+	["dirt", [3539, 378]], 
+	["dirt", [3961, 500]],
+	["dirt", [3961, 699]], 
+	["dirt", [3961, 898]], 
+	["dirt", [3961, 1097]],
+	
+	["dirt", [3999, 0]], 
+	["dirt", [3999, 199]], 
+	["dirt", [3999, 398]], 
+	
+	["ame_rockSmall", [3250, 663]], 
+	["ame_rockSmall", [3830, 660]], 
+	["ame_rockSmall", [3220, 1000]], 
+	["ame_rockSmall", [3765, 760]],
+	["ame_rockLong", [3000, 848]], 
+	["ame_rockHuge", [3300, 900]]
+  ]
+
+}
