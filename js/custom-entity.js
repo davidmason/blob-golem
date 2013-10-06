@@ -1,7 +1,5 @@
 var Entity = require('crtrdg-entity'),
-    inherits = require('inherits'),
-    aabb = require('aabb-2d');
-
+    inherits = require('inherits');
 
 module.exports = CustomEntity;
 inherits(CustomEntity, Entity);
@@ -11,6 +9,7 @@ function CustomEntity() {
 }
 
 CustomEntity.prototype.loadOptions = function (options) {
+  console.log("loading options");
   this.position = {
     x: options.position.x,
     y: options.position.y
@@ -21,20 +20,32 @@ CustomEntity.prototype.loadOptions = function (options) {
     y: options.size.y
   };
 
+  this.gravity = options.gravity;
+
   this.setBoundingBox();
 
   this.on('update', function(interval) {
+    console.log("entity update");
+    if (this.gravity) {
+      console.log("this has gravity: " + this.gravity);
+      this.velocity.y += gravity * (interval / 1000);
+    }
     this.setBoundingBox();
-    this.checkCollisions();
+    this.checkEntityCollisions();
   });
 };
 
-CustomEntity.prototype.move = function (velocity) {
-  this.position.x += velocity.x;
-  this.position.y += velocity.y;
+CustomEntity.prototype.setGravity = function (gravity) {
+  this.gravity = gravity;
 }
 
-CustomEntity.prototype.checkCollisions = function () {
+CustomEntity.prototype.move = function (velocity, delta) {
+  this.position.x += velocity.x * delta;
+  this.position.y += velocity.y * delta;
+}
+
+// this is just entity collisions
+CustomEntity.prototype.checkEntityCollisions = function () {
   var entities = this.game.entities;
   var count = entities.length;
   for (var i = 0; i < count; i++) {
