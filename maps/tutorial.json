@@ -2,7 +2,7 @@
   "name": "Tutorial",
   "tiles" : {
     "laubaiLeaves": {
-      "background": "images/leavesTransparent.png",
+      "background": "images/tile/leavesTransparent.png",
       "width": 130,
       "height": 130,
       "bounds": {
@@ -13,7 +13,7 @@
       }
     },
 	"laubaiClearLeaves": {
-      "background": "images/leavesTransparent.png",
+      "background": "images/tile/leavesTransparent.png",
       "width": 50,
       "height": 50,
       "bounds": {
@@ -24,7 +24,7 @@
       }
     },
     "bark": {
-      "background": "images/Bark.png",
+      "background": "images/tile/Bark.png",
       "width": 130,
       "height": 130,
       "bounds": {
@@ -35,7 +35,7 @@
       }
     },
     "laubaiBottomBranch": {
-      "background": "images/barkBottomTransparent.png",
+      "background": "images/tile/barkBottomTransparent.png",
       "width": 30,
       "height": 30,
       "bounds": {
@@ -46,7 +46,7 @@
       }
     },
     "laubaiTopBranch": {
-      "background": "images/barkTopTransparent.png",
+      "background": "images/tile/barkTopTransparent.png",
       "width": 30,
       "height": 30,
       "bounds": {
@@ -57,7 +57,7 @@
       }
 	}, 	  
     "grass": {
-      "background": "images/grass.png",
+      "background": "images/tile/grass.png",
       "width": 120,
       "height": 100,
       "bounds": {
@@ -68,13 +68,13 @@
       }
     },
     "dirt": {
-      "background": "images/dirtCentre.png",
+      "background": "images/tile/dirtCentre.png",
       "width": 240,
       "height": 199
     }, 
 	
   	"ame_grass": {
-      "background": "images/grass.png",
+      "background": "images/tile/grass.png",
       "width": 120,
       "height": 100, 
 	  "bounds": {
@@ -85,7 +85,7 @@
       }
     },  
 		"ame_rockSmall": {
-      "background": "images/dirtRock.png",
+      "background": "images/tile/dirtRock.png",
       "width": 75,
       "height": 100,
 	  "bounds": {
@@ -96,7 +96,7 @@
       }	  
     }, 
 	"ame_rockLong": {
-      "background": "images/dirtRock.png",
+      "background": "images/tile/dirtRock.png",
       "width": 200,
       "height": 75, 
 	  "bounds": {
@@ -107,7 +107,7 @@
       }	   
 	}, 
 	"ame_rockHuge": {
-      "background": "images/dirtRock.png",
+      "background": "images/tile/dirtRock.png",
       "width": 600,
       "height": 100, 
 	  "bounds": {
@@ -118,7 +118,7 @@
       }	  
     },
 	"ame_tunnel": {
-      "background": "images/dirtDugOutCentre.png",
+      "background": "images/tile/dirtDugOutCentre.png",
       "width": 240,
       "height": 199, 
 	  "bounds": {
@@ -129,7 +129,7 @@
       }
     }, 
 	"dirt1": {
-	  "background": "images/dirtCentre.png",
+	  "background": "images/tile/dirtCentre.png",
       "width": 240,
       "height": 199,
 	  "bounds": {
@@ -142,7 +142,7 @@
 	},
 	
 	"dirt2": {
-	  "background": "images/dirtCentre.png",
+	  "background": "images/tile/dirtCentre.png",
       "width": 240,
       "height": 199,
 	  "bounds": {
@@ -154,7 +154,7 @@
 	  
 	},
 	"dirt3": {
-	  "background": "images/dirtCentre.png",
+	  "background": "images/tile/dirtCentre.png",
       "width": 240,
       "height": 199,
 	  "bounds": {
@@ -166,7 +166,7 @@
 	  
 	},
 	"dirt4": {
-	  "background": "images/dirtCentre.png",
+	  "background": "images/tile/dirtCentre.png",
       "width": 240,
       "height": 199,
 	  "bounds": {
@@ -178,7 +178,7 @@
 	  
 	},
 	"dirt5": {
-	  "background": "images/dirtCentre.png",
+	  "background": "images/tile/dirtCentre.png",
       "width": 240,
       "height": 199,
 	  "bounds": {
@@ -190,7 +190,7 @@
 	  
 	},
 	"dirt6": {
-	  "background": "images/dirtCentre.png",
+	  "background": "images/tile/dirtCentre.png",
       "width": 240,
       "height": 199,
 	  "bounds": {
@@ -202,7 +202,7 @@
 	  
 	},
 	"dirt7": {
-	  "background": "images/dirtCentre.png",
+	  "background": "images/tile/dirtCentre.png",
       "width": 240,
       "height": 199,
 	  "bounds": {
@@ -214,7 +214,7 @@
 	  
 	},
 	"dirt8": {
-	  "background": "images/dirtCentre.png",
+	  "background": "images/tile/dirtCentre.png",
       "width": 240,
       "height": 199,
 	  "bounds": {
@@ -226,7 +226,7 @@
 	  
 	},
 	"dirt9": {
-	  "background": "images/dirtCentre.png",
+	  "background": "images/tile/dirtCentre.png",
       "width": 240,
       "height": 199,
 	  "bounds": {
@@ -238,7 +238,7 @@
 	  
 	},
 	"rockSmall": {
-      "background": "images/dirtRock.png",
+      "background": "images/tile/dirtRock.png",
       "width": 75,
       "height": 100,
 	  "bounds": {
@@ -249,7 +249,7 @@
       }	  
     },
 	"water": {
-	  "background": "images/water.png",
+	  "background": "images/tile/water.png",
 	  "width": 107,
 	  "height": 89,
 	  "bounds": {
@@ -261,7 +261,7 @@
 	},
 	
 	"dug": {
-	  "background": "images/dirtDugOutCentre.png",
+	  "background": "images/tile/dirtDugOutCentre.png",
 	  "width": 240,
 	  "height": 199,
 	  "bounds": {
@@ -275,7 +275,7 @@
 	
 
   "background": {
-    "file": "images/sky.png",
+    "file": "images/background/sky.png",
     "top": 0,
     "left": 0
   },

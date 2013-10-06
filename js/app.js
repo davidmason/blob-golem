@@ -53,7 +53,7 @@ var game = new Game({
 });
 
 // appears not to be possible to pass in a string to use for require
-var map = require('./../maps/testmap.json');
+var map = require('./../maps/tutorial.json');
 var level = new Map(game, map);
 
 var keyboard = new Keyboard(game);
