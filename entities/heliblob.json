@@ -1,0 +1,13 @@
+{
+  "name": "Heliblob",
+  "width": 329,
+  "height": 416,
+  "sprite": {
+    "file": "images/entity/heliblob.png",
+    "width": 329,
+    "height": 416,
+    "animations": {
+      "hover": [[0,0], [0,2], [0,1]]
+    }
+  }
+}
