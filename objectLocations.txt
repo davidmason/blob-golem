@@ -1,0 +1,22 @@
+Beetle1 [584, 988] to [634, 988]
+Beetle2 [1251, 979] to [1301, 978]
+Beetle3 [2960, 281] to [3010, 281]
+Beetle4 [3552, 366] to [3602, 366]
+
+Frog1 [1727, 789]
+Frog2 [2479, 708]
+Frog3 [2748, 628]
+Frog4 [2800, 631]
+
+Chipmunk1 [1331, 733]
+Chipmunk2 [1201, 586]
+
+Squirrel1 [1200, 439] to [1200, 510]
+Squirrel2 [1328, 375] to [1328, 435]
+
+Mushroom1 [3096, 855]
+Mushroom2 [2253, 1187]
+Mushroom3 [3537, 1141]
+Mushroom4 [3926, 1141]
+Mushroom5 [3694, 911]
+Mushroom6 [3863, 677]
