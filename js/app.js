@@ -343,24 +343,35 @@ addFrog(2670, 560);
 addFrog(2730, 570);
 
 
-var chipmunk1 = new Enemy({
-  descriptor: chipmunkDescriptor,
-  position: { x: 600, y: 200 },
-  size: { x: 100, y: 100 },
-  speed: 400,
-  gravity: true
-});
-addEnemy(chipmunk1, 'idle');
 
-var squirrel1 = new Enemy({
-  descriptor: squirrelDescriptor,
-  position: { x: 700, y: 200 },
-  size: { x: 100, y: 100 },
-  speed: 400,
-  gravity: true
-});
-addEnemy(squirrel1, 'move');
+var addChipmunk = function (x, y) {
+  var chipmunk1 = new Enemy({
+    descriptor: chipmunkDescriptor,
+    position: { x: x, y: y },
+    size: { x: 100, y: 100 },
+    speed: 400,
+    gravity: true
+  });
+  addEnemy(chipmunk1, 'idle');
+}
 
+addChipmunk(1080, 580);
+addChipmunk(1300, 700);
 
+var addSquirrel = function (x, y) {
+  var squirrel1 = new Enemy({
+    descriptor: squirrelDescriptor,
+    position: { x: x, y: y },
+    size: { x: 100, y: 100 },
+    speed: 400,
+    gravity: true
+  });
+  addEnemy(squirrel1, 'move');
+  return squirrel1
+}
+
+addSquirrel(950, 50);
+var squir = addSquirrel(1260, 339);
+squir.left = true;
 
 player.addTo(game);
