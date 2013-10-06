@@ -180,6 +180,12 @@ player.on('draw', function (ctx) {
 });
 
 player.on('collision', function (entity) {
+  if (player.animation.name !== 'chomp') {
+    player.startAnimation('chomp');
+  }
+
+  // fixme: how to stop it?
+
   // Note: this plays a sound every frame
   // TODO add collision-start, collision-end
   if (soundsLoaded) {
@@ -337,10 +343,10 @@ var addFrog = function(x, y) {
   addEnemy(frog, 'idle');
 };
 
-addFrog(1650, 700);
-addFrog(2400, 700);
-addFrog(2670, 560);
-addFrog(2730, 570);
+addFrog(1600, 650);
+addFrog(2350, 650);
+addFrog(2630, 510);
+addFrog(2680, 520);
 
 
 
@@ -353,7 +359,7 @@ var addChipmunk = function (x, y) {
     gravity: true
   });
   addEnemy(chipmunk1, 'idle');
-}
+};
 
 addChipmunk(1080, 580);
 addChipmunk(1300, 700);
@@ -367,8 +373,8 @@ var addSquirrel = function (x, y) {
     gravity: true
   });
   addEnemy(squirrel1, 'move');
-  return squirrel1
-}
+  return squirrel1;
+};
 
 addSquirrel(950, 50);
 var squir = addSquirrel(1260, 339);
