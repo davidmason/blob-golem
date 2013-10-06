@@ -3,9 +3,10 @@ var loadImages = require('image-batch-loader'),
 
 module.exports = Map;
 
+var allImagesLoaded = false;
+
 // module.exports = function (game, map) {
 function Map(game, map) {
-  var allImagesLoaded = false;
   var images = {};
   this.bounds = [];
   recordBounds(this.bounds);
@@ -86,4 +87,8 @@ Map.prototype.checkCollision = function (boundingBox) {
     }
   }
   return false; // FIXME other details
+}
+
+Map.prototype.loaded = function () {
+  return allImagesLoaded;
 }

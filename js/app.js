@@ -7,10 +7,8 @@ var Game = require('crtrdg-gameloop'),
     loadSounds = require('./load-audio'),
     Map = require('./map/load-map'),
     drawBigText = require('./draw-big-text'),
-    GameTimer = require('./game-timer');
-
-
-var gravity = 9.8;
+    GameTimer = require('./game-timer'),
+    aabb = require('aabb-2d');
 
 var imagesToLoad = ['images/entity/blob-concept.png'];
 
@@ -18,6 +16,7 @@ var addEntity = function (entityDescriptor) {
   imagesToLoad.push(entityDescriptor.sprite.file);
 }
 
+var defaultFrameMillis = 100;
 
 var blob = require('./../entities/blob.json');
 addEntity(blob);
@@ -49,15 +48,14 @@ var game = new Game({
 // appears not to be possible to pass in a string to use for require
 var map = require('./../maps/testmap.json');
 var level = new Map(game, map);
-console.dir(level);
 
 var keyboard = new Keyboard(game);
 var mouse = new Mouse(game);
 mouse.on('click', function(location){
-  console.log("clicked at location (" + location.x + ", " + location.y + ")");
-  if (soundsLoaded) {
-    sounds['audio/effects/In_water'].play();
-  }
+  // console.log("clicked at location (" + location.x + ", " + location.y + ")");
+  // if (soundsLoaded) {
+  //   sounds['audio/effects/In_water'].play();
+  // }
 });
 
 keyboard.on('keydown', function(keyCode){
@@ -74,103 +72,52 @@ var gameTimer = new GameTimer();
 gameTimer.addTo(game);
 
 var player = new Player({
-  position: { x: 400, y: 100 },
+  descriptor: blob,
+  position: { x: 400, y: -2000 },
   size: { x: 100, y: 100 },
-  speed: 100,
+  speed: 400,
   gravity: true
 });
 player.addTo(game);
 
+player.startAnimation('stationary');
+
 player.on('update', function (interval) {
+  if (level.loaded) {
+    this.fixVelocity();
 
+    var newPos = this.checkMove(this.velocity, (interval / 1000));
+    if (level.checkCollision(newPos)) {
+      // FIXME should move as far as possible
+      this.velocity.x = 0;
+      this.velocity.y = 0;
 
-  if (level.checkCollision(this.boundingBox)) {
-    console.log("A collision happened");
-    this.velocity.y = -50;
-  }
-  this.keyboardInput(keyboard);
-  this.move(this.velocity, (interval / 1000));
-});
+      // check needed or it stays on first frame
+      if (this.jumping) { this.startAnimation('stationary'); }
+      this.jumping = false;
+    }
 
-player.on('draw', function (context) {
-  context.fillStyle = "#337";
-  context.fillRect(this.position.x, this.position.y, this.size.x, this.size.y);
-});
+    this.keyboardInput(keyboard);
+    this.move(this.velocity, (interval / 1000));
 
-player.on('collision', function (entity) {
-  // Note: this plays a sound every frame
-  // TODO add collision-start, collision-end
-  if (soundsLoaded) {
-    sounds['audio/effects/In_water'].play();
-  }
-});
-
-var enemy = new Enemy({
-  position: { x: 300, y: 300 },
-  size: { x: 50, y: 50 },
-  speed: 2
-});
-enemy.addTo(game);
-
-enemy.on('update', function (interval) {
-  this.move({ x: -2, y: -2});
-  if (this.position.x < 0) this.position.x = game.width + this.position.x;
-  if (this.position.y < 0) this.position.y = this.position.y + game.height;
-});
-
-enemy.on('draw', function (context) {
-  context.fillStyle = "#733";
-  context.fillRect(this.position.x, this.position.y, this.size.x, this.size.y);
-});
-
-enemy.on('collision', function (entity) {
-  // console.log("Got you!!!");
-});
-
-game.on('update', function (interval) {
-});
-
-// FIXME all this stuff should go in another class
-var frenemy = new Enemy({
-  descriptor: blob,
-  position: { x: 460, y: 250 },
-  speed: 1
-});
-frenemy.addTo(game);
-
-frenemy.startAnimation('stationary');
-
-var defaultFrameMillis = 100;
-
-frenemy.on('update', function (interval) {
-
-  this.position.x = ((this.position.x + interval / 2 + this.size.x) % (game.width + this.size.x)) - this.size.x;
-
-  if (level.checkCollision(this.boundingBox)) {
-    console.log('frenemy collision');
+    if (this.velocity.x > 0.1) this.left = false;
+    else if (this.velocity.x < -0.1) this.left = true;
   }
 
+  // advance animation frame if time to
   var anim = this.animation;
-  var animName = anim.name;
-  if (animName === 'leap' && anim.frame === anim.frames.length - 1) {
-    this.startAnimation('stationary');
-  } else if (anim.name === 'stationary' && this.position.x > 150 && this.position.x <= 200) {
-    this.startAnimation('leap');
-  }
-
   anim.remainingTime -= interval;
   if (anim.remainingTime <= 0) {
     anim.frame = (this.animation.frame + 1) % this.animation.length;
     anim.remainingTime = (anim.frames[anim.frame][2] || defaultFrameMillis) + anim.remainingTime;
   }
+
+
 });
 
-frenemy.on('draw', function drawFrenemy (context) {
-
-  // TODO move all this to CustomEntity
-
+player.on('draw', function (context) {
   if (imagesLoaded) {
-
+    var playerScale = 1.1;
     var sprite = this.descriptor.sprite;
     var anim = this.animation;
 
@@ -178,21 +125,32 @@ frenemy.on('draw', function drawFrenemy (context) {
     var img = images[sprite.file];
     var frame = anim.frames[anim.frame];
 
+    context.save();
+    context.translate(this.position.x, this.position.y);
+    if (this.left) {
+      context.translate(this.size.x, 0);
+      context.scale(-1, 1);
+    }
     context.drawImage(img,
                 frame[0] * w, frame[1] * h, w, h,
-                this.position.x, this.position.y, this.size.x, this.size.y);
+                0, 0, this.size.x * playerScale, this.size.y * playerScale);
+                // this.position.x, this.position.y, this.size.x, this.size.y);
+    context.restore();
   }
 });
 
-game.on('draw', function (context) {
-  var img;
+player.on('collision', function (entity) {
+  // Note: this plays a sound every frame
+  // TODO add collision-start, collision-end
+  if (soundsLoaded) {
+    // sounds['audio/effects/In_water'].play();
+  }
+});
 
-  // just testing draw
+
+game.on('draw', function (context) {
   if (imagesLoaded) {
-    // img = images['images/entity/blob-concept.png'];
-    // context.drawImage(img, 0, 0);
     if (game.paused) drawBigText(context, game, "paused", 0.75);
-    // else drawBigText(context, game, "playing", gameTimer.throbber());
   } else {
     drawBigText(context, game, "loading", gameTimer.throbber);
   }

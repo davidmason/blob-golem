@@ -59,6 +59,12 @@ CustomEntity.prototype.move = function (velocity, delta) {
   }
 }
 
+CustomEntity.prototype.checkMove = function (velocity, delta) {
+  var x = this.position.x + velocity.x * delta;
+  var y = this.position.y + velocity.y * delta;
+  return aabb([x, y], [this.size.x, this.size.y]);
+}
+
 CustomEntity.prototype.checkCollisions = function () {
   var entities = this.game.entities;
   var count = entities.length;
