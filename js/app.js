@@ -134,6 +134,7 @@ player.on('draw', function (context) {
 
     context.save();
     context.translate(this.position.x, this.position.y);
+    context.globalAlpha = 0.90;
     if (this.left) {
       context.translate(this.size.x, 0);
       context.scale(-1, 1);
