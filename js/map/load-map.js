@@ -16,11 +16,20 @@ function Map(game, map) {
     allImagesLoaded = true;
   });
 
+  // copied from app
+  var drawWithCamera = function (context, drawAction) {
+    context.save();
+    context.translate(game.camera.x, game.camera.y);
+    drawAction(context);
+    context.restore();
+  }
 
-  game.on('draw-background', function (context) {
+  game.on('draw-background', function (ctx) {
     if (allImagesLoaded) {
-      context.drawImage(images[map.background.file], map.background.left, map.background.top);
-      drawTileBackgrounds(context);
+      drawWithCamera(ctx, function (context) {
+        context.drawImage(images[map.background.file], map.background.left, map.background.top);
+        drawTileBackgrounds(context);
+      });
     }
   });
 

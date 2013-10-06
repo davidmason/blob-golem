@@ -122,28 +122,31 @@ player.on('update', function (interval) {
 
 });
 
-player.on('draw', function (context) {
+player.on('draw', function (ctx) {
+  var self = this;
   if (imagesLoaded) {
-    var playerScale = 1.1;
-    var sprite = this.descriptor.sprite;
-    var anim = this.animation;
+    drawWithCamera (ctx, function (context) {
+      var playerScale = 1.1;
+      var sprite = self.descriptor.sprite;
+      var anim = self.animation;
 
-    var w = sprite.width, h = sprite.height;
-    var img = images[sprite.file];
-    var frame = anim.frames[anim.frame];
+      var w = sprite.width, h = sprite.height;
+      var img = images[sprite.file];
+      var frame = anim.frames[anim.frame];
 
-    context.save();
-    context.translate(this.position.x, this.position.y);
-    context.globalAlpha = 0.90;
-    if (this.left) {
-      context.translate(this.size.x, 0);
-      context.scale(-1, 1);
-    }
-    context.drawImage(img,
-                frame[0] * w, frame[1] * h, w, h,
-                0, 0, this.size.x * playerScale, this.size.y * playerScale);
-                // this.position.x, this.position.y, this.size.x, this.size.y);
-    context.restore();
+      context.save();
+      context.translate(self.position.x, self.position.y);
+      context.globalAlpha = 0.90;
+      if (self.left) {
+        context.translate(self.size.x, 0);
+        context.scale(-1, 1);
+      }
+      context.drawImage(img,
+                  frame[0] * w, frame[1] * h, w, h,
+                  0, 0, self.size.x * playerScale, self.size.y * playerScale);
+                  // self.position.x, self.position.y, self.size.x, self.size.y);
+      context.restore();
+    });
   }
 });
 
@@ -155,19 +158,33 @@ player.on('collision', function (entity) {
   }
 });
 
+game.camera = { x: 0, y: 0 };
+
+game.on('update', function (interval) {
+  // set camera position to position of blob
+  //context.save();
+  game.camera.x = -player.position.x + (game.width - player.size.x) / 2;
+  game.camera.y = -player.position.y + (game.height - player.size.y) / 2;
+  // then make sure it is within the background bounds
+});
+
+var drawWithCamera = function (context, drawAction) {
+  context.save();
+  context.translate(game.camera.x, game.camera.y);
+  drawAction(context);
+  context.restore();
+}
 
 game.on('draw', function (context) {
-  if (imagesLoaded) {
-    if (game.paused) drawBigText(context, game, "paused", 0.75);
-  } else {
-    drawBigText(context, game, "loading", gameTimer.throbber);
-  }
-
+    if (imagesLoaded) {
+      if (game.paused) drawBigText(context, game, "paused", 0.75);
+    } else {
+      drawBigText(context, game, "loading", gameTimer.throbber);
+    }
 });
 
 
 // beyond here, there be enemies
-
 
 var setUpdateFor = function (entity) {
   entity.on('update', function (interval) {
@@ -217,26 +234,29 @@ var setUpdateFor = function (entity) {
 }
 
 var setDrawFor = function (entity) {
-  entity.on('draw', function (context) {
+  entity.on('draw', function (ctx) {
+    var self = this;
     if (imagesLoaded) {
-      var drawScale = 1.1;
-      var sprite = this.descriptor.sprite;
-      var anim = this.animation;
+      drawWithCamera (ctx, function (context) {
+        var drawScale = 1.1;
+        var sprite = self.descriptor.sprite;
+        var anim = self.animation;
 
-      var w = sprite.width, h = sprite.height;
-      var img = images[sprite.file];
-      var frame = anim.frames[anim.frame];
+        var w = sprite.width, h = sprite.height;
+        var img = images[sprite.file];
+        var frame = anim.frames[anim.frame];
 
-      context.save();
-      context.translate(this.position.x, this.position.y);
-      if (this.left) {
-        context.translate(this.size.x, 0);
-        context.scale(-1, 1);
-      }
-      context.drawImage(img,
-                  frame[0] * w, frame[1] * h, w, h,
-                  0, 0, this.size.x * drawScale, this.size.y * drawScale);
-      context.restore();
+        context.save();
+        context.translate(self.position.x, self.position.y);
+        if (self.left) {
+          context.translate(self.size.x, 0);
+          context.scale(-1, 1);
+        }
+        context.drawImage(img,
+                    frame[0] * w, frame[1] * h, w, h,
+                    0, 0, self.size.x * drawScale, self.size.y * drawScale);
+        context.restore();
+      });
     }
   });
 }
