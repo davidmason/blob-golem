@@ -119,7 +119,7 @@ loadImages(imagesToLoad, function(loadedImages) {
 
 var sounds = {};
 var soundsLoaded = false;
-loadSounds(['audio/effects/In_water'], function (loadedSounds) {
+loadSounds(['audio/effects/eat_animal'], function (loadedSounds) {
   sounds = loadedSounds;
   soundsLoaded = true;
   console.log("loaded all sounds");
@@ -265,7 +265,10 @@ player.on('collision', function (entity) {
   // Note: this plays a sound every frame
   // TODO add collision-start, collision-end
   if (soundsLoaded) {
-    // sounds['audio/effects/In_water'].play();
+    sounds['audio/effects/eat_animal'].play();
+    setTimeout(function () {
+      sounds['audio/effects/eat_animal'].pause();
+    }, 3000)
   }
 });
 
