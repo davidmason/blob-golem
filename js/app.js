@@ -10,7 +10,7 @@ var Game = require('crtrdg-gameloop'),
     GameTimer = require('./game-timer'),
     aabb = require('aabb-2d');
 
-var imagesToLoad = ['images/entity/blob-concept.png'];
+var imagesToLoad = [];
 
 var addEntity = function (entityDescriptor) {
   imagesToLoad.push(entityDescriptor.sprite.file);
@@ -18,8 +18,15 @@ var addEntity = function (entityDescriptor) {
 
 var defaultFrameMillis = 100;
 
+// adding entities
 var blob = require('./../entities/blob.json');
 addEntity(blob);
+var beetleDescriptor = require('./../entities/beetle.json');
+addEntity(beetleDescriptor);
+var frogDescriptor = require('./../entities/frog.json');
+addEntity(frogDescriptor);
+
+
 
 var images = {};
 var imagesLoaded = false;
@@ -73,12 +80,13 @@ gameTimer.addTo(game);
 
 var player = new Player({
   descriptor: blob,
-  position: { x: 400, y: -2000 },
+  position: { x: -700, y: -2000 },
   size: { x: 100, y: 100 },
   speed: 400,
   gravity: true
 });
-player.addTo(game);
+player.velocity.x = 500;
+// player.addTo(game);
 
 player.startAnimation('stationary');
 
@@ -111,7 +119,6 @@ player.on('update', function (interval) {
     anim.frame = (this.animation.frame + 1) % this.animation.length;
     anim.remainingTime = (anim.frames[anim.frame][2] || defaultFrameMillis) + anim.remainingTime;
   }
-
 
 });
 
@@ -156,3 +163,120 @@ game.on('draw', function (context) {
   }
 
 });
+
+
+// beyond here, there be enemies
+
+
+var setUpdateFor = function (entity) {
+  entity.on('update', function (interval) {
+
+    if (level.loaded) {
+      this.fixVelocity();
+
+      // this horrible mess tries to move on both dimensions
+      // then if it fails it tries horizontal, then vertical if that fails
+      // and finally gives up
+      var newPos = this.checkMove(this.velocity, (interval / 1000));
+      if (level.checkCollision(newPos)) {
+        newPos = this.checkMove({ x: this.velocity.x, y: 0 }, (interval / 1000));
+        if (!level.checkCollision(newPos)) {
+          this.velocity.y = 0;
+        } else {
+          newPos = this.checkMove({ x: 0, y: this.velocity.y }, (interval / 1000));
+          if (!level.checkCollision(newPos)) {
+            this.velocity.x = 0;
+          } else {
+            this.velocity.x = 0;
+            this.velocity.y = 0;
+          }
+
+        }
+        // FIXME should move as far as possible
+      }
+
+
+      // TODO maybe decide on random movement
+
+      this.move(this.velocity, (interval / 1000));
+
+      // if (this.velocity.x > 0.1) this.left = false;
+      // else if (this.velocity.x < -0.1) this.left = true;
+    }
+
+
+    // advance animation frame if time to
+    var anim = this.animation;
+    anim.remainingTime -= interval;
+    if (anim.remainingTime <= 0) {
+      anim.frame = (this.animation.frame + 1) % this.animation.length;
+      anim.remainingTime = (anim.frames[anim.frame][2] || defaultFrameMillis) + anim.remainingTime;
+    }
+  });
+}
+
+var setDrawFor = function (entity) {
+  entity.on('draw', function (context) {
+    if (imagesLoaded) {
+      var drawScale = 1.1;
+      var sprite = this.descriptor.sprite;
+      var anim = this.animation;
+
+      var w = sprite.width, h = sprite.height;
+      var img = images[sprite.file];
+      var frame = anim.frames[anim.frame];
+
+      context.save();
+      context.translate(this.position.x, this.position.y);
+      if (this.left) {
+        context.translate(this.size.x, 0);
+        context.scale(-1, 1);
+      }
+      context.drawImage(img,
+                  frame[0] * w, frame[1] * h, w, h,
+                  0, 0, this.size.x * drawScale, this.size.y * drawScale);
+      context.restore();
+    }
+  });
+}
+
+
+var addEnemy = function (enemy, animationName) {
+  enemy.startAnimation(animationName);
+  enemy.addTo(game);
+  setUpdateFor(enemy);
+  setDrawFor(enemy);
+};
+
+
+var beetle = new Enemy({
+  descriptor: beetleDescriptor,
+  position: { x: 400, y: 200 },
+  size: { x: 100, y: 100 },
+  speed: 400,
+  gravity: true
+});
+addEnemy(beetle, 'move');
+beetle.on('update', function (interval) {
+  // random wander
+  if (Math.random() < 0.01) {
+    this.left = !this.left;
+  }
+  if (this.left) {
+    this.velocity.x = 50;
+  } else {
+    this.velocity.x = -50;
+  }
+});
+
+var beetle = new Enemy({
+  descriptor: frogDescriptor,
+  position: { x: 400, y: 200 },
+  size: { x: 100, y: 100 },
+  speed: 400,
+  gravity: true
+});
+addEnemy(beetle, 'idle');
+
+
+player.addTo(game);
