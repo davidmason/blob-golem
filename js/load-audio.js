@@ -8,7 +8,7 @@ module.exports = function (audioPaths, callback) {
   for (var i=0; i < audioPaths.length; i++) {
     // FIXME reload is not good in Firefox, add browser switch.
     // FIXME specify pool count in input paths
-    var sound = AudioFX(audioPaths[i], { formats: ['wav', 'mp3'], reload: true, pool: 5 }, function() {
+    var sound = AudioFX(audioPaths[i], { formats: ['wav', 'mp3'], reload: true, pool: 5, volume: 1.0 }, function() {
       toLoad -= 1;
       allLoaded = toLoad == 0;
       if (allLoaded) {

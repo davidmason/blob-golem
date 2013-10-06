@@ -47,6 +47,7 @@ loadSounds(['audio/effects/eat_animal'], function (loadedSounds) {
   sounds = loadedSounds;
   soundsLoaded = true;
   console.log("loaded all sounds");
+  // sounds['audio/music/bg1'].play();
 });
 
 var game = new Game({
@@ -179,6 +180,8 @@ player.on('draw', function (ctx) {
   }
 });
 
+var soundPlaying = false;
+
 player.on('collision', function (entity) {
   if (player.animation.name !== 'chomp') {
     player.startAnimation('chomp');
@@ -188,11 +191,13 @@ player.on('collision', function (entity) {
 
   // Note: this plays a sound every frame
   // TODO add collision-start, collision-end
-  if (soundsLoaded) {
+  if (soundsLoaded && !soundPlaying) {
+    soundPlaying = true;
     sounds['audio/effects/eat_animal'].play();
     setTimeout(function () {
-      sounds['audio/effects/eat_animal'].pause();
-    }, 3000)
+      sounds['audio/effects/eat_animal'].stop();
+      soundPlaying = false;
+    }, 2000);
   }
 });
 
