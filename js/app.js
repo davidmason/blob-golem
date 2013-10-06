@@ -25,6 +25,10 @@ var beetleDescriptor = require('./../entities/beetle.json');
 addEntity(beetleDescriptor);
 var frogDescriptor = require('./../entities/frog.json');
 addEntity(frogDescriptor);
+var chipmunkDescriptor = require('./../entities/chipmunk.json');
+addEntity(chipmunkDescriptor);
+var squirrelDescriptor = require('./../entities/squirrel.json');
+addEntity(squirrelDescriptor);
 
 
 
@@ -49,7 +53,7 @@ var game = new Game({
   canvas: 'main-canvas',
   width: 1200,
   height: 650,
-  backgroundColor: '#6cf'
+  backgroundColor: '#95c8f0'
 });
 
 // appears not to be possible to pass in a string to use for require
@@ -81,12 +85,11 @@ gameTimer.addTo(game);
 var player = new Player({
   descriptor: blob,
   position: { x: -700, y: -2000 },
-  size: { x: 100, y: 100 },
+  size: { x: 10, y: 10 },
   speed: 400,
   gravity: true
 });
 player.velocity.x = 500;
-// player.addTo(game);
 
 player.startAnimation('stationary');
 
@@ -94,16 +97,42 @@ player.on('update', function (interval) {
   if (level.loaded) {
     this.fixVelocity();
 
+    // var newPos = this.checkMove(this.velocity, (interval / 1000));
+    // if (level.checkCollision(newPos)) {
+    //   // FIXME should move as far as possible
+    //   this.velocity.x = 0;
+    //   this.velocity.y = 0;
+
+    //   // check needed or it stays on first frame
+    //   if (this.jumping) { this.startAnimation('stationary'); }
+    //   this.jumping = false;
+    // }
+
+
+    // copied from enemy update below
     var newPos = this.checkMove(this.velocity, (interval / 1000));
     if (level.checkCollision(newPos)) {
-      // FIXME should move as far as possible
-      this.velocity.x = 0;
-      this.velocity.y = 0;
+      newPos = this.checkMove({ x: this.velocity.x, y: 0 }, (interval / 1000));
+      if (!level.checkCollision(newPos)) {
+        this.velocity.y = 0;
+        this.velocity.x *= 0.7;
+        if (this.jumping) { this.startAnimation('stationary'); }
+        this.jumping = false;
+      } else {
+        newPos = this.checkMove({ x: 0, y: this.velocity.y }, (interval / 1000));
+        if (!level.checkCollision(newPos)) {
+          this.velocity.x = 0;
+        } else {
+          this.velocity.x = 0;
+          this.velocity.y = 0;
+          if (this.jumping) { this.startAnimation('stationary'); }
+          this.jumping = false;
+        }
 
-      // check needed or it stays on first frame
-      if (this.jumping) { this.startAnimation('stationary'); }
-      this.jumping = false;
+      }
+      // FIXME should move as far as possible
     }
+
 
     this.keyboardInput(keyboard);
     this.move(this.velocity, (interval / 1000));
@@ -270,34 +299,79 @@ var addEnemy = function (enemy, animationName) {
 };
 
 
-var beetle = new Enemy({
-  descriptor: beetleDescriptor,
-  position: { x: 400, y: 200 },
-  size: { x: 100, y: 100 },
-  speed: 400,
-  gravity: true
-});
-addEnemy(beetle, 'move');
-beetle.on('update', function (interval) {
-  // random wander
-  if (Math.random() < 0.01) {
-    this.left = !this.left;
-  }
-  if (this.left) {
-    this.velocity.x = 50;
-  } else {
-    this.velocity.x = -50;
-  }
-});
+var addBeetle = function (x, y) { 
+  var beetle = new Enemy({
+    descriptor: beetleDescriptor,
+    position: { x: x, y: y },
+    size: { x: 100, y: 100 },
+    speed: 400,
+    gravity: true
+  });
+  addEnemy(beetle, 'move');
+  beetle.on('update', function (interval) {
+    // random wander
+    if (Math.random() < 0.01) {
+      this.left = !this.left;
+    }
+    if (this.left) {
+      this.velocity.x = 50;
+    } else {
+      this.velocity.x = -50;
+    }
+  });
+}
 
-var beetle = new Enemy({
-  descriptor: frogDescriptor,
-  position: { x: 400, y: 200 },
-  size: { x: 100, y: 100 },
-  speed: 400,
-  gravity: true
-});
-addEnemy(beetle, 'idle');
+addBeetle(610, 900);
+addBeetle(1275, 880);
+addBeetle(2980, 190);
+addBeetle(3575, 270);
 
+var addFrog = function(x, y) {
+  var frog = new Enemy({
+    descriptor: frogDescriptor,
+    position: { x: x, y: y },
+    size: { x: 100, y: 100 },
+    speed: 400,
+    gravity: true
+  });
+  addEnemy(frog, 'idle');
+};
+
+addFrog(1650, 700);
+addFrog(2400, 700);
+addFrog(2670, 560);
+addFrog(2730, 570);
+
+
+
+var addChipmunk = function (x, y) {
+  var chipmunk1 = new Enemy({
+    descriptor: chipmunkDescriptor,
+    position: { x: x, y: y },
+    size: { x: 100, y: 100 },
+    speed: 400,
+    gravity: true
+  });
+  addEnemy(chipmunk1, 'idle');
+}
+
+addChipmunk(1080, 580);
+addChipmunk(1300, 700);
+
+var addSquirrel = function (x, y) {
+  var squirrel1 = new Enemy({
+    descriptor: squirrelDescriptor,
+    position: { x: x, y: y },
+    size: { x: 100, y: 100 },
+    speed: 400,
+    gravity: true
+  });
+  addEnemy(squirrel1, 'move');
+  return squirrel1
+}
+
+addSquirrel(950, 50);
+var squir = addSquirrel(1260, 339);
+squir.left = true;
 
 player.addTo(game);
