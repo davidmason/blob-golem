@@ -5,9 +5,12 @@ var Game = require('crtrdg-gameloop'),
     Enemy = require('./entity/enemy'),
     loadImages = require('image-batch-loader'),
     loadSounds = require('./load-audio'),
-    loadMap = require('./map/load-map'),
+    Map = require('./map/load-map'),
     drawBigText = require('./draw-big-text'),
     GameTimer = require('./game-timer');
+
+
+var gravity = 9.8;
 
 var imagesToLoad = ['images/entity/blob-concept.png'];
 
@@ -45,7 +48,8 @@ var game = new Game({
 
 // appears not to be possible to pass in a string to use for require
 var map = require('./../maps/testmap.json');
-loadMap(game, map);
+var level = new Map(game, map);
+console.dir(level);
 
 var keyboard = new Keyboard(game);
 var mouse = new Mouse(game);
@@ -70,16 +74,22 @@ var gameTimer = new GameTimer();
 gameTimer.addTo(game);
 
 var player = new Player({
-  position: { x: 100, y: 100 },
+  position: { x: 400, y: 100 },
   size: { x: 100, y: 100 },
-  speed: 100
+  speed: 100,
+  gravity: true
 });
 player.addTo(game);
 
 player.on('update', function (interval) {
-  var delta = (interval / 1000);
+
+
+  if (level.checkCollision(this.boundingBox)) {
+    console.log("A collision happened");
+    this.velocity.y = -50;
+  }
   this.keyboardInput(keyboard);
-  this.move(this.velocity, delta);
+  this.move(this.velocity, (interval / 1000));
 });
 
 player.on('draw', function (context) {
@@ -114,7 +124,7 @@ enemy.on('draw', function (context) {
 });
 
 enemy.on('collision', function (entity) {
-  console.log("Got you!!!");
+  // console.log("Got you!!!");
 });
 
 game.on('update', function (interval) {
@@ -135,6 +145,10 @@ var defaultFrameMillis = 100;
 frenemy.on('update', function (interval) {
 
   this.position.x = ((this.position.x + interval / 2 + this.size.x) % (game.width + this.size.x)) - this.size.x;
+
+  if (level.checkCollision(this.boundingBox)) {
+    console.log('frenemy collision');
+  }
 
   var anim = this.animation;
   var animName = anim.name;
@@ -175,10 +189,10 @@ game.on('draw', function (context) {
 
   // just testing draw
   if (imagesLoaded) {
-    img = images['images/entity/blob-concept.png'];
-    context.drawImage(img, 0, 0);
+    // img = images['images/entity/blob-concept.png'];
+    // context.drawImage(img, 0, 0);
     if (game.paused) drawBigText(context, game, "paused", 0.75);
-    else drawBigText(context, game, "playing", gameTimer.throbber());
+    // else drawBigText(context, game, "playing", gameTimer.throbber());
   } else {
     drawBigText(context, game, "loading", gameTimer.throbber);
   }

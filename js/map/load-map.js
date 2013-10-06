@@ -1,13 +1,20 @@
-var loadImages = require('image-batch-loader');
+var loadImages = require('image-batch-loader'),
+    aabb = require('aabb-2d');
 
-module.exports = function (game, map) {
+module.exports = Map;
+
+// module.exports = function (game, map) {
+function Map(game, map) {
   var allImagesLoaded = false;
   var images = {};
+  this.bounds = [];
+  recordBounds(this.bounds);
 
   loadImages(requiredImages(map), function (loadedImages) {
     images = loadedImages;
     allImagesLoaded = true;
   });
+
 
   game.on('draw-background', function (context) {
     if (allImagesLoaded) {
@@ -32,19 +39,51 @@ module.exports = function (game, map) {
     }
   }
 
-};
-
-function requiredImages (map) {
-  var tileBackgroundFiles = [];
-  tileBackgroundFiles.push(map.background.file);
-  for (var tile in map.tiles) {
-    tileBackgroundFiles.push(map.tiles[tile].background);
+  function requiredImages () {
+    var tileBackgroundFiles = [];
+    tileBackgroundFiles.push(map.background.file);
+    for (var tile in map.tiles) {
+      tileBackgroundFiles.push(map.tiles[tile].background);
+    }
+    return tileBackgroundFiles;
   }
-  return tileBackgroundFiles;
+
+  function recordBounds (bounds) {
+    // actually need to look up tiles for each midground thing
+    var tilePlacing = map.midground;
+    var tiles = map.tiles;
+
+    var name, x, y, w, h, bnds;
+
+    for (var i = 0; i < tilePlacing.length; i++) {
+
+      name = tilePlacing[i][0];
+      x = tilePlacing[i][1][0];
+      y = tilePlacing[i][1][1];
+      w = map.tiles[name].width;
+      h = map.tiles[name].height;
+
+      bnds = map.tiles[name].bounds;
+
+      var bbox;
+      if (bnds) {
+        bbox = aabb([x + bnds.x, y + bnds.y], [bnds.width, bnds.height]);
+      } else {
+        bbox = aabb([x, y], [w, h]);
+      }
+
+      bounds.push(bbox);
+    }
+  }
+
+  return this;
 }
 
-// NOTE: this will also need to supply or handle collisions.
-// could add a method to deal with that - either add a listener
-// or have a method that takes a boundig box and indicates
-// whether it collides with the map (and maybe which part of
-// the bounding box collides in case of jumping up through platforms).
+Map.prototype.checkCollision = function (boundingBox) {
+  for (var i = 0; i < this.bounds.length; i++) {
+    if (this.bounds[i].intersects(boundingBox)) {
+      return true; // FIXME other details
+    }
+  }
+  return false; // FIXME other details
+}
