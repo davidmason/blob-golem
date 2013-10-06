@@ -402,15 +402,22 @@ addBeetle(1275, 880);
 addBeetle(2980, 190);
 addBeetle(3575, 270);
 
+var addFrog = function(x, y) {
+  var frog = new Enemy({
+    descriptor: frogDescriptor,
+    position: { x: x, y: y },
+    size: { x: 100, y: 100 },
+    speed: 400,
+    gravity: true
+  });
+  addEnemy(frog, 'idle');
+};
 
-var frog = new Enemy({
-  descriptor: frogDescriptor,
-  position: { x: 500, y: 200 },
-  size: { x: 100, y: 100 },
-  speed: 400,
-  gravity: true
-});
-addEnemy(frog, 'idle');
+addFrog(1650, 700);
+addFrog(2400, 700);
+addFrog(2670, 560);
+addFrog(2730, 570);
+
 
 var chipmunk1 = new Enemy({
   descriptor: chipmunkDescriptor,
